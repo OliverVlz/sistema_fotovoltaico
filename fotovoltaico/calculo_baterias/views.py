@@ -49,13 +49,13 @@ def resultados(request):
 
     # Realizar cálculos de dimensionamiento
     # Dimensionamiento de baterías
-    a_h_dia = ((consumo_diario_AC / configuracion.eficiencia_inversor) + consumo_diario_DC) / configuracion.sistema_dc
-    num_baterias_paralelo = math.ceil((a_h_dia * configuracion.dias_autonomia) / (configuracion.capacidad_bateria * configuracion.porcentaje_descarga))
-    num_baterias_serie = math.ceil(configuracion.sistema_dc / configuracion.voltaje_modulo)
+    a_h_dia = ((consumo_diario_AC / configuracion.eficiencia_inversor*100) + consumo_diario_DC) / configuracion.sistema_dc
+    num_baterias_paralelo = math.ceil((a_h_dia * configuracion.dias_autonomia) / (configuracion.capacidad_bateria * configuracion.porcentaje_descarga*0.01))
+    num_baterias_serie = math.ceil(configuracion.sistema_dc / configuracion.voltaje_bateria)
     num_total_baterias = math.ceil(num_baterias_paralelo * num_baterias_serie)
 
     # Dimensionamiento de paneles
-    amperes_pico = a_h_dia / (configuracion.eficiencia_bateria * configuracion.horas_sol_dia)
+    amperes_pico = math.ceil(a_h_dia / (configuracion.eficiencia_bateria*0.01 * configuracion.horas_sol_dia))
     num_modulos_fotovoltaicos_paralelo = math.ceil(amperes_pico / configuracion.corriente_nominal)
     num_modulos_fotovoltaicos_serie = math.ceil(configuracion.sistema_dc / configuracion.voltaje_modulo)
     num_total_modulos_fotovoltaicos = math.ceil(num_modulos_fotovoltaicos_paralelo * num_modulos_fotovoltaicos_serie)
@@ -71,6 +71,7 @@ def resultados(request):
         'num_baterias_paralelo': num_baterias_paralelo,
         'num_baterias_serie': num_baterias_serie,
         'num_total_baterias': num_total_baterias,
+        'amperes_pico': amperes_pico,
         'num_modulos_fotovoltaicos_paralelo': num_modulos_fotovoltaicos_paralelo,
         'num_modulos_fotovoltaicos_serie': num_modulos_fotovoltaicos_serie,
         'num_total_modulos_fotovoltaicos': num_total_modulos_fotovoltaicos,
