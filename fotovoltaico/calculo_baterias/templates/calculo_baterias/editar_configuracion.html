@@ -1,0 +1,45 @@
+{% extends 'calculo_baterias/base.html' %}
+{% block title %}Editar Configuración{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header text-white text-center mb-5" style="background-color: gray;">
+            <h3>Editar Configuración del Sistema Fotovoltaico</h3>
+        </div>
+        <div class="card-body mx-4">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-4">
+                    {% for field in form.visible_fields %}
+                    <!-- Fila con dos columnas -->
+                    {% if forloop.counter0|divisibleby:2 %}
+                    <div class="row align-items-center">
+                    {% endif %}
+                        <!-- Columna 1: Título y Casilla -->
+                        <div class="col-md-3 text-end">
+                            <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                                {{ field.help_text }}
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger mt-1">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% if not forloop.counter0|divisibleby:2 or forloop.last %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-primary btn-md px-5">Guardar Configuración</button>
+                    <a href="{% url 'lista_electrodomesticos' %}" class="btn btn-outline-secondary px-5">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

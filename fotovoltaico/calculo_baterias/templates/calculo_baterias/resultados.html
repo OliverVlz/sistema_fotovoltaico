@@ -1,0 +1,59 @@
+{% extends 'calculo_baterias/base.html' %}
+{% block title %}Resultados{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Resultados del Sistema Fotovoltaico</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Consumo Diario-AC (W)</th>
+                <td>{{ resultados.consumo_diario_AC }}</td>
+            </tr>
+            <tr>
+                <th>Consumo Diario-DC (W)</th>
+                <td>{{ resultados.consumo_diario_DC }}</td>
+            </tr>
+            <tr>
+                <th>Amperios-hora por día (Ah/día)</th>
+                <td>{{ resultados.a_h_dia }}</td>
+            </tr>
+            <tr>
+                <th>Baterías en Paralelo</th>
+                <td>{{ resultados.num_baterias_paralelo }}</td>
+            </tr>
+            <tr>
+                <th>Baterías en Serie</th>
+                <td>{{ resultados.num_baterias_serie }}</td>
+            </tr>
+            <tr>
+                <th class="resultado">Total de Baterías</th>
+                <td class="resultado">{{ resultados.num_total_baterias }}</td>
+            </tr>
+            <tr>
+                <th>Módulos Fotovoltaicos en Paralelo</th>
+                <td>{{ resultados.num_modulos_fotovoltaicos_paralelo }}</td>
+            </tr>
+            <tr>
+                <th>Módulos Fotovoltaicos en Serie</th>
+                <td>{{ resultados.num_modulos_fotovoltaicos_serie }}</td>
+            </tr>
+            <tr>
+                <th class="resultado">Total de Módulos Fotovoltaicos</th>
+                <td class="resultado">{{ resultados.num_total_modulos_fotovoltaicos }}</td>
+            </tr>
+            <tr>
+                <th>Capacidad de Cortocircuito del Controlador (A)</th>
+                <td>{{ resultados.capacidad_cortocircuito }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center mt-4">
+        <a href="{% url 'lista_electrodomesticos' %}" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+<style>
+    .resultado {
+        background-color: #fff3e6a9 !important;
+    }
+</style>
+{% endblock %}

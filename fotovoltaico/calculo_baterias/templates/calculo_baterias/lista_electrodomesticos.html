@@ -1,0 +1,65 @@
+{% extends 'calculo_baterias/base.html' %}
+{% block title %}Lista de Electrodomésticos y Configuración{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Contenedor izquierdo: Lista de electrodomésticos -->
+        <div class="col-md-8">
+            <h2 class="mb-4">Lista de Electrodomésticos</h2>
+            <table class="table table-bordered shadow-md">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>N°</th>
+                        <th>Watts</th>
+                        <th>Horas Uso</th>
+                        <th>Días Uso</th>
+                        <th>Alimentación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in electrodomesticos %}
+                    <tr>
+                        <td>{{ e.nombre }}</td>
+                        <td>{{ e.cantidad }}</td>
+                        <td>{{ e.watts }}</td>
+                        <td>{{ e.horas_uso }}</td>
+                        <td>{{ e.dias_uso }}</td>
+                        <td>{{ e.alimentacion }}</td>
+                        <td>
+                            <a href="{% url 'editar_electrodomestico' e.id %}" class="btn btn-outline-success btn-sm">Editar</a>
+                            <a href="{% url 'eliminar_electrodomestico' e.id %}" 
+                            class="btn btn-danger btn-sm" 
+                            onclick="return confirm('¿Estás seguro de que deseas eliminar este electrodoméstico?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url 'agregar_electrodomestico' %}" class="btn btn-secondary">Agregar Electrodoméstico</a>
+            <a href="{% url 'resultados' %}" class="btn btn-primary">Ver Resultados <i class="bi bi-arrow-right"></i></a>
+        </div>
+
+        <!-- Contenedor derecho: Configuración dinámica -->
+        <div class="col-md-4">
+            <h2 class="mb-4">Configuración Actual</h2>
+            <table class="table table-bordered shadow-md">
+                <tbody>
+                    {% for item in configuracion_data %}
+                    <tr>
+                        <th>{{ item.help_text }}</th>
+                        <td>{{ item.value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center mt-4">
+                <a href="{% url 'editar_configuracion' %}" class="btn btn-outline-secondary btn-md">Editar Configuración</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

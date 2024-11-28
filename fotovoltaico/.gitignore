@@ -1,0 +1,36 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Entornos virtuales
+env/
+venv/
+
+# Archivos generados por Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Archivos de migraciones de Django
+db.sqlite3
+*.log
+
+# Archivos de configuración locales
+*.env
+
+# Archivos y directorios estáticos generados
+staticfiles/
+media/
+node_modules/
+
+# Configuración de IDEs
+.vscode/
+.idea/
+
+# Configuración de Git
+*.swp
+*.swo
+*.orig
+
+# Otros
+*.bak
